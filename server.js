@@ -13,6 +13,9 @@ const openai = hasOpenAI ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY }) : 
 app.use(cors());
 app.use(express.json({ limit: "2mb" }));
 app.use(express.static("public"));
+app.get("/", (req, res) => {
+  res.sendFile(process.cwd() + "/public/index.html");
+});
 
 const num = (v, fallback = null) => {
   const n = Number(v);
