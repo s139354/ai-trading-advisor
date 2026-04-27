@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Trading Advisor Final Legend</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-mark">AI</div>
+      <div class="side-title">Final Legend</div>
+      <nav>
+        <button class="nav active" data-jump="dashboard">Dashboard</button>
+        <button class="nav" data-jump="chart">Chart</button>
+        <button class="nav" data-jump="risk">Risk Desk</button>
+        <button class="nav" data-jump="lab">Scenario Lab</button>
+        <button class="nav" data-jump="journal">Journal</button>
+      </nav>
+      <div class="status-pill" id="apiStatus">Checking AI...</div>
+    </aside>
+
+    <main>
+      <header class="hero" id="dashboard">
+        <div>
+          <p class="eyebrow">Institutional AI Trading Command Center</p>
+          <h1>AI Trading Advisor <span>Final Legend</span></h1>
+          <p class="subtitle">A full professional trading assistant combining AI analysis, risk sizing, scenarios, journaling, and live TradingView charting.</p>
+        </div>
+        <div class="hero-actions">
+          <button class="ghost" id="themeBtn">Toggle Theme</button>
+          <button class="ghost" id="saveBtn">Save Setup</button>
+          <button class="primary" id="analyzeTopBtn">Run AI Analysis</button>
+        </div>
+      </header>
+
+      <section class="grid-main">
+        <div class="panel input-panel">
+          <div class="panel-head"><h2>Market Inputs</h2><span>Professional setup builder</span></div>
+          <div class="form-grid">
+            <label>Symbol <input id="symbol" value="FX:XAUUSD"></label>
+            <label>Market Type <select id="marketType"><option>Forex</option><option>Crypto</option><option>Commodity</option><option>Stock</option><option>Index</option></select></label>
+            <label>Timeframe <select id="timeframe"><option>Scalp</option><option selected>Intraday</option><option>Swing</option><option>Position</option></select></label>
+            <label>Current Price <input type="number" id="price" value="2345.50" step="0.00001"></label>
+            <label>ATR <input type="number" id="atr" value="18.40" step="0.00001"></label>
+            <label>Spread / Cost <input type="number" id="spread" value="0.20" step="0.00001"></label>
+            <label>Support <input type="number" id="support" value="2320.00" step="0.00001"></label>
+            <label>Resistance <input type="number" id="resistance" value="2368.00" step="0.00001"></label>
+            <label>RSI <input type="number" id="rsi" value="58" step="0.1"></label>
+            <label>Fast MA <input type="number" id="fastMa" value="2348" step="0.00001"></label>
+            <label>Slow MA <input type="number" id="slowMa" value="2332" step="0.00001"></label>
+            <label>Reward/Risk <select id="rr"><option value="1.5">1:1.5</option><option value="2" selected>1:2</option><option value="3">1:3</option><option value="4">1:4</option></select></label>
+            <label>Account Size <input type="number" id="equity" value="10000" step="0.01"></label>
+            <label>Risk % <input type="number" id="riskPct" value="1" step="0.01"></label>
+          </div>
+          <label class="wide">Trader Thesis<textarea id="notes" placeholder="Example: bullish structure after liquidity sweep, wait for NY session confirmation, avoid high-impact news..."></textarea></label>
+          <div class="button-row"><button class="primary" id="analyzeBtn">Run AI Analysis</button><button class="ghost" id="goldBtn">Gold Example</button><button class="ghost" id="btcBtn">Bitcoin Example</button><button class="ghost" id="resetBtn">Reset</button></div>
+          <p class="mini" id="statusMsg">Ready.</p>
+        </div>
+
+        <div class="panel decision-panel">
+          <div class="panel-head"><h2>AI Decision Center</h2><span id="sourceBadge">Awaiting analysis</span></div>
+          <div class="decision-line"><div><span class="mini">Decision</span><strong id="decision">WAIT</strong></div><div class="score-ring"><span id="confidence">--</span><small>confidence</small></div></div>
+          <div class="metric-grid">
+            <div><span>Grade</span><b id="grade">--</b></div>
+            <div><span>Entry</span><b id="entry">--</b></div>
+            <div><span>Stop Loss</span><b id="stop">--</b></div>
+            <div><span>Risk Amount</span><b id="riskAmount">--</b></div>
+          </div>
+          <div class="narrative" id="narrative">Run the analysis to generate a professional AI report.</div>
+          <div class="split-lists"><div><h3>Reasons</h3><ul id="reasons"></ul></div><div><h3>Warnings</h3><ul id="warnings"></ul></div></div>
+        </div>
+      </section>
+
+      <section class="panel chart-panel" id="chart">
+        <div class="panel-head"><h2>TradingView Professional Chart</h2><span>Use the symbol field above then reload chart</span></div>
+        <div class="chart-actions"><button class="ghost" id="loadChartBtn">Reload Chart</button><button class="ghost" id="fullscreenBtn">Focus Chart</button></div>
+        <div id="tvChart"></div>
+      </section>
+
+      <section class="quad-grid" id="risk">
+        <div class="panel"><div class="panel-head"><h2>Risk Desk</h2><span>Position and exposure</span></div><div class="table" id="riskTable"></div></div>
+        <div class="panel"><div class="panel-head"><h2>Trade Levels</h2><span>Entry / SL / TP</span></div><div class="table" id="levelsTable"></div></div>
+        <div class="panel"><div class="panel-head"><h2>Checklist</h2><span>Execution readiness</span></div><div id="checklist"></div></div>
+        <div class="panel"><div class="panel-head"><h2>Backtest Simulator</h2><span>Estimated strategy profile</span></div><div class="table" id="backtestTable"></div></div>
+      </section>
+
+      <section class="grid-main" id="lab">
+        <div class="panel"><div class="panel-head"><h2>Scenario Lab</h2><span>Risk alternatives</span></div><div id="scenarioCards" class="scenario-grid"></div></div>
+        <div class="panel"><div class="panel-head"><h2>Market Intelligence</h2><span>Decision context</span></div><div class="intel-grid"><div><b>Session Bias</b><p>Check London/NY overlap for liquidity and false breaks.</p></div><div><b>News Risk</b><p>Avoid entries before central bank, CPI, NFP, or major earnings events.</p></div><div><b>Correlation</b><p>For gold, monitor USD and yields. For crypto, monitor BTC dominance and risk sentiment.</p></div></div></div>
+      </section>
+
+      <section class="grid-main" id="journal">
+        <div class="panel"><div class="panel-head"><h2>Trade Journal</h2><span>Saved in your browser</span></div><div class="button-row"><button class="primary" id="saveJournalBtn">Save Current Trade</button><button class="ghost" id="clearJournalBtn">Clear Journal</button></div><div id="journalList"></div></div>
+        <div class="panel"><div class="panel-head"><h2>Institutional Report</h2><span>Copy or export</span></div><pre id="report">No report yet.</pre><div class="button-row"><button class="ghost" id="copyReportBtn">Copy Report</button><button class="ghost" id="exportReportBtn">Export TXT</button></div></div>
+      </section>
+    </main>
+  </div>
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
